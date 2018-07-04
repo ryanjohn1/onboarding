@@ -25,14 +25,14 @@ public class ToolTip {
     public enum AnimationType {
         FROM_MASTER_VIEW,
         FROM_TOP,
-        NONE;
+        NONE
     }
 
 
     public enum Position {
         LEFT,
         CENTER,
-        RIGHT;
+        RIGHT
     }
     private CharSequence mText;
 
@@ -47,6 +47,8 @@ public class ToolTip {
     private boolean shouldShowShadow;
     private Typeface typeface;
     private int delayInMilliseconds;
+    private int verticalOffset;
+    private int screenMargin;
     /**
      * Creates a new ToolTip without any values.
      */
@@ -60,6 +62,8 @@ public class ToolTip {
         animationType = AnimationType.FROM_MASTER_VIEW;
         position = Position.CENTER;
         delayInMilliseconds = 0;
+        verticalOffset = 0;
+        screenMargin = 8;
     }
 
     /**
@@ -177,6 +181,26 @@ public class ToolTip {
     }
 
     /**
+     * Set vertical offset for the whole tooltip away from the target view (in dp).
+     *
+     * @return this ToolTip to build upon.
+     */
+    public ToolTip withVerticalOffset(int dpOffset) {
+        this.verticalOffset = dpOffset;
+        return this;
+    }
+
+    /**
+     * Set margin of tooltip away from it's parent view, if not set, defaults to 8 (in dp).
+     *
+     * @return this ToolTip to build upon.
+     */
+    public ToolTip withScreenMargin(int dpMargin) {
+        this.screenMargin = dpMargin;
+        return this;
+    }
+
+    /**
      * @param typeface the typeface to set
      */
     public void withTypeface(final Typeface typeface) {
@@ -230,6 +254,14 @@ public class ToolTip {
 
     public int getDelayInMilliseconds() {
         return delayInMilliseconds;
+    }
+
+    public int getVerticalOffset() {
+        return verticalOffset;
+    }
+
+    public int getScreenMargin() {
+        return screenMargin;
     }
 
     public Position getPosition() {

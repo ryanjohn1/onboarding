@@ -3,12 +3,12 @@ apply plugin: 'com.android.library'
 apply from: 'pushMaven.gradle'
 
 android {
-    compileSdkVersion 19
-    buildToolsVersion "19.1.0"
+    compileSdkVersion 27
+    buildToolsVersion "27.0.3"
 
     defaultConfig {
         minSdkVersion 9
-        targetSdkVersion 19
+        targetSdkVersion 27
         versionCode Integer.parseInt(new Date().format('yyyyMMddHH'))
         versionName VERSION_NAME
     }
@@ -20,5 +20,5 @@ android {
 }
 
 dependencies {
-    compile 'com.nineoldandroids:library:2.4.0'
+    implementation 'com.nineoldandroids:library:2.4.0'
 }

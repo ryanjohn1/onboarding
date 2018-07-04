@@ -14,7 +14,7 @@ Add the following to your `build.gradle`:
 
 ```groovy
 dependencies {
-    compile 'com.github.ryanjohn1:onboarding:1.0.6'
+    implementation 'com.github.ryanjohn1:onboarding:1.1.0'
 }
 
 ```

@@ -51,6 +51,7 @@ public class ToolTipView extends LinearLayout implements ViewTreeObserver.OnPreD
     public static final String SCALE_X_COMPAT = "scaleX";
     public static final String SCALE_Y_COMPAT = "scaleY";
     public static final String ALPHA_COMPAT = "alpha";
+    public static final int POINTER_MARGIN_OFFSET = 20;
 
     private ImageView topPointerView;
     private View topFrame;
@@ -71,6 +72,8 @@ public class ToolTipView extends LinearLayout implements ViewTreeObserver.OnPreD
 
     private int relativeMasterViewX;
     private int width;
+    private int verticalOffsetDp;
+    private int screenMarginDp;
 
     private OnToolTipViewClickedListener listener;
 
@@ -161,14 +164,18 @@ public class ToolTipView extends LinearLayout implements ViewTreeObserver.OnPreD
             shadowView.setVisibility(View.GONE);
         }
 
+        verticalOffsetDp = toolTip.getVerticalOffset();
+        screenMarginDp = toolTip.getScreenMargin();
+
         if (dimensionsKnown) {
             applyToolTipPosition(toolTip.getPosition());
         }
     }
 
     private void applyToolTipPosition(ToolTip.Position position) {
-        final int margin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, getResources().getDisplayMetrics());
-        final int pointerMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 25, getResources().getDisplayMetrics());
+        final int offset = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, verticalOffsetDp, getResources().getDisplayMetrics());
+        final int margin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, screenMarginDp, getResources().getDisplayMetrics());
+        final int pointerMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, screenMarginDp + POINTER_MARGIN_OFFSET, getResources().getDisplayMetrics());
         final int[] masterViewScreenPosition = new int[2];
         view.getLocationOnScreen(masterViewScreenPosition);
 
@@ -185,8 +192,8 @@ public class ToolTipView extends LinearLayout implements ViewTreeObserver.OnPreD
         relativeMasterViewY = masterViewScreenPosition[1] - parentViewScreenPosition[1];
         final int relativeMasterViewCenterX = determineCenterXFromDesiredPosition(position, masterViewWidth);
 
-        int toolTipViewAboveY = relativeMasterViewY - getHeight();
-        int toolTipViewBelowY = Math.max(0, relativeMasterViewY + masterViewHeight);
+        int toolTipViewAboveY = relativeMasterViewY - getHeight() - offset;//
+        int toolTipViewBelowY = Math.max(0, relativeMasterViewY + masterViewHeight + offset);
 
         int toolTipViewX = Math.max(margin, relativeMasterViewCenterX - width / 2);
         if (toolTipViewX + width + margin > viewDisplayFrame.right) {

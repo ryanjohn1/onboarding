@@ -9,12 +9,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/tooltip_top_frame"
+        android:layout_alignParentTop="true"
         android:layout_marginTop="10dp" />
 
     <ImageView
         android:id="@+id/tooltip_pointer_up"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:src="@drawable/tooltip_arrow_up" />
 
     <FrameLayout
@@ -51,7 +53,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tooltip_bottomframe"
-        android:layout_marginTop="-1dp"
+        android:layout_marginTop="-10dp"
         android:src="@drawable/tooltip_arrow_down" />
 
 
